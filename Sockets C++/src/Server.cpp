@@ -18,7 +18,7 @@ int main(int argc, char **argv){
 		std::string file = fm.readFile();
 
 		int counter = 0;
-		while(counter<1){
+		while(counter<100){
 			s2 = s1.Accept();
 			childpid = fork();
 			if(childpid < 0)perror("server: Error de bifurcación.");
