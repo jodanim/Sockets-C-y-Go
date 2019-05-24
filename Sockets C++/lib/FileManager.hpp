@@ -4,7 +4,6 @@
 #include <string>
 #include <fstream>
 #include <iostream>
-#include "../lib/Time.hpp"
 
 class FileManager{
 	public:
@@ -13,8 +12,8 @@ class FileManager{
 		void openTransferFile(std::string transferFilePath);
 		void openCsv(std::string csvPath);
 		void closeTransferFile();
-		void writeTime(std::chrono::high_resolution_clock::time_point time);
-		void writeTotal(std::chrono::duration<double, std::milli> time);
+		void writeTime(uint64_t time);
+		void writeTotal(uint64_t time);
 		std::string readFile();
 	private:
 		std::ifstream transferFile;

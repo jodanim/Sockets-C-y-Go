@@ -46,9 +46,9 @@ Client_d: Socket.obj_d Time.obj_d FileManager.obj_d Client.obj_d
 	g++ -g obj/debug/Client.obj obj/debug/Socket.obj obj/debug/Time.obj obj/debug/FileManager.obj -o bin/debug/Client
 
 run_server: Server
-	.\/bin/Server
+	.\/bin/Server 20 .txt 1101
 	
-run_client: Client
-	.\/bin/Client
+run_client: Client 
+	.\/bin/Client 20 1101 10.1.137.83
 	
 

@@ -3,17 +3,19 @@
 
 #include <chrono>
 
+using namespace std::chrono;
+
 class Time{
 	public:
 		Time();
 		void setStartTime();
         void setEndTime();
-		std::chrono::high_resolution_clock::time_point getStartTime();
-        std::chrono::high_resolution_clock::time_point getEndTime();
-        std::chrono::duration<double, std::milli> getDiff();
+		uint64_t getStartTime();
+        uint64_t getEndTime();
+        uint64_t getDiff();
 	private:
-		std::chrono::high_resolution_clock::time_point startTime;
-        std::chrono::high_resolution_clock::time_point endTime;
+		uint64_t startTime;
+        uint64_t endTime;
 };
 
 #endif

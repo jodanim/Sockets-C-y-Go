@@ -1,25 +1,28 @@
 #include "../lib/Time.hpp"
 
+
 Time::Time(){
     
 }
 
 void Time::setStartTime(){
-    startTime = std::chrono::high_resolution_clock::now();
+    startTime = duration_cast<nanoseconds>
+              (high_resolution_clock::now().time_since_epoch()).count();
 }
 
 void Time::setEndTime(){
-    endTime = std::chrono::high_resolution_clock::now();
+    endTime =  duration_cast<nanoseconds>
+              (high_resolution_clock::now().time_since_epoch()).count();
 }
 
-std::chrono::high_resolution_clock::time_point Time::getStartTime(){
-    return startTime;
+uint64_t Time::getStartTime(){
+	return startTime;
 }
 
-std::chrono::high_resolution_clock::time_point Time::getEndTime(){
+uint64_t Time::getEndTime(){
     return endTime;
 }
 
-std::chrono::duration<double, std::milli> Time::getDiff(){
+uint64_t Time::getDiff(){
     return endTime - startTime;
 }

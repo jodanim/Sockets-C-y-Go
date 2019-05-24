@@ -19,20 +19,19 @@ void FileManager::closeTransferFile(){
     transferFile.close();
 }
 
-void FileManager::writeTime(std::chrono::high_resolution_clock::time_point time){   
-    csv << time << ",";
+void FileManager::writeTime(uint64_t time){   
+	csv << time << ",";
 }
 
-void FileManager::writeTotal(std::chrono::duration<double, std::milli> time){
-    csv << time.count() << "endl";
+void FileManager::writeTotal(uint64_t time){
+    csv << time << std::endl;
 }
 
 std::string FileManager::readFile(){
     std::string buffer = "";
     std::string line;
-    do{
-        std::getline(transferFile,line);
+    while(getline(transferFile,line)){	
         buffer += line;
-    }while(transferFile);
+    }
     return buffer;
 }

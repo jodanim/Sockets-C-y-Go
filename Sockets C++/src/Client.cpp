@@ -5,21 +5,31 @@
 int main(int argc, char**argv){
     Time t;
     FileManager fm;
-	fm.openCsv("output.csv")
-    std::cout << t.getDiff().count() << std::endl;
+	fm.openCsv("output.csv");
 	char buffer[8192];
-	Socket s('s',false);
-	s.Connect((char*)"192.168.0.16", 11011);
-    for(int j = 0; j < 10; j++){
-        for(int i = 0; i < 100; i++){
-            t.setStartTime();
-            s.Write(argv[1]);
-            s.Read(buffer, 1024);
-            t.setEndTime();
-            fm.writeTime(t.getStartTime);
-            fm.writeTime(t.getEndTime);
-            fm.writeTotal(t.getDiff);
+
+
+	int childpid;
+	Socket *s;	
+
+    for(int j = 0; j < 4; j++){
+		for(int i = 0; i < std::atoi(argv[1]); i++){
+			s = new Socket('s',false);
+			s->Connect(argv[3], std::atoi(argv[2]));
+			childpid = fork();
+			if(childpid < 0)perror("client: Error de bifurcación.");
+			else if (0 == childpid) { 
+	            t.setStartTime();
+    	        s->Write(argv[0]);
+	            s->Read(buffer, 1024);
+	            t.setEndTime();
+		    	fm.writeTime(t.getStartTime());
+            	fm.writeTime(t.getEndTime());
+            	fm.writeTotal(t.getDiff());
+				_exit(0);	
+			}
+			s->Close();
         }
     }
-	return 0;	
+	return 0;
 }
