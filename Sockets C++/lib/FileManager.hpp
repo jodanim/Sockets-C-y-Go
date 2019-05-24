@@ -7,10 +7,13 @@
 
 class FileManager{
 	public:
-		FileManager(std::string transferFilePath);
-		FileManager(std::string csvPath);
+		FileManager();
 		~FileManager();
+		void openTransferFile(std::string transferFilePath);
+		void openCsv(std::string csvPath);
+		void closeTransferFile();
 		void writeln(std::string line);
+		std::string readFile();
 	private:
 		std::ifstream transferFile;
 		std::ofstream csv;
