@@ -12,7 +12,7 @@ class FileManager{
 		void openTransferFile(std::string transferFilePath);
 		void openCsv(std::string csvPath);
 		void closeTransferFile();
-		void writeTime(uint64_t time);
+		void writeHeader(std::string header);
 		void writeTotal(uint64_t time);
 		std::string readFile();
 	private:
