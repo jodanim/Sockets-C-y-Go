@@ -19,8 +19,8 @@ void FileManager::closeTransferFile(){
     transferFile.close();
 }
 
-void FileManager::writeHeader(std::string header){
-	csv << header << std::endl;
+void FileManager::writeTime(uint64_t time){   
+	csv << time << ",";
 }
 
 void FileManager::writeTotal(uint64_t time){

@@ -1,12 +1,7 @@
 #include "../lib/Socket.hpp"
 #include "../lib/FileManager.hpp"
+#include <math.h> 
 
-
-/**
- * arg1: repeticiones
- * arg2: extension del archivo
- * arg3: puerto
- */
 int main(int argc, char **argv){
 	FileManager fm;
 
@@ -17,8 +12,8 @@ int main(int argc, char **argv){
 	s1.Bind( std::atoi(argv[3]) );
 	s1.Listen( 5 );
 	
-	for(int i = 0; i < 16; i++){
-                std::string filename = "data/"+std::to_string(65536*(i+1))+"B"+argv[2];
+	for(int i = 0; i < 10; i++){
+		std::string filename = "data/"+std::to_string((int)(pow(2,4+i)))+"B"+argv[2];
 		fm.openTransferFile(filename);
 		std::string file = fm.readFile();
 
