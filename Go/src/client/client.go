@@ -5,13 +5,14 @@ import (
     "net"
     "bufio"
     "io"
+    "time"
 )
 
 func resolveAddr(host string, port int) *net.TCPAddr {
     addr := fmt.Sprintf("%s:%d", host, port)
     tcpAddr, _ := net.ResolveTCPAddr("tcp4", addr)
 
-    fmt.Printf("Address: %s\n", tcpAddr)
+    // fmt.Printf("Address: %s\n", tcpAddr)
 
     return tcpAddr
 }
@@ -55,32 +56,38 @@ func ReadFile(conn *net.TCPConn) []byte {
     for err == nil {
         size, err = conn.Read(buffer_in)
         if err == io.EOF {
-            fmt.Println("Fin del archivo")
+            // fmt.Println("Fin del archivo")
             break
         } else if err != nil {
             fmt.Println("No se pudo leer", err)
             break
         }
         // var texto string = string(buffer)
-        fmt.Printf("Recibimos %d bytes\n", size)
-        fmt.Println(string(buffer_in[:size]))
+        // fmt.Printf("Recibimos %d bytes\n", size)
+        // fmt.Println(string(buffer_in[:size]))
         file_buff = append(file_buff, buffer_in[:size]...)
     }
 
     return file_buff
 }
 
-func GetFile(host string, port int) {
+func GetFile(host string, port int) (int, time.Duration) {
 
     addr := resolveAddr(host, port)
 
     conn := Open(addr)
     defer conn.Close()
 
+    start := time.Now()
     file := ReadFile(conn)
+    end := time.Now()
 
-    fmt.Println("Conexión finalizada")
-    fmt.Println(string(file))
+    trans_time := end.Sub(start)
+    file_size := len(file)
 
-    return
+    // fmt.Println("Conexión finalizada")
+    //fmt.Println(string(file))
+    // fmt.Printf("Duré %s ns para descargar %d B\n", trans_time, file_size)
+
+    return file_size, trans_time
 }
