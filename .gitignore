@@ -1,0 +1,10 @@
+
+*.ipch
+
+*.bin
+
+*.json
+
+Sockets C\+\+/bin/
+
+Sockets C\+\+/obj/
