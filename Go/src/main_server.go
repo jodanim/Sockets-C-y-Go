@@ -8,7 +8,7 @@ import (
 
 func main()  {
 
-    log.Println("hola mundo")
+    log.Println("Server program startup")
     var filename string
     var port int
 

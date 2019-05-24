@@ -32,28 +32,29 @@ func makeListener(port int) net.Listener {
         log.Fatal("BLA2")
     }
 
-    fmt.Println("Listening on address", listener.Addr())
 
     return listener
 }
 
 func handleConection(conn net.Conn, data []byte) {
 
-    fmt.Println("Incoming client connection", conn.RemoteAddr())
+    log.Println("Incoming client connection", conn.RemoteAddr())
     bytes_written, err := conn.Write(data)
 
     if err != nil {
         fmt.Println(err)
     }
-    fmt.Printf("Wrote %d bytes to client\n", bytes_written)
+    log.Printf("Wrote %d bytes to client\n", bytes_written)
 
 }
 
 func ServeFile(path string, port int)  {
 
     fileStream := loadFile(path)
-
     listener := makeListener(port)
+
+    log.Printf("Serving file %s of size %d\n B", path, len(fileStream))
+    log.Println("Listening on address", listener.Addr())
 
     for {
 
