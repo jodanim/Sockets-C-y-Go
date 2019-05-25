@@ -24,7 +24,7 @@ func loadFile(path string) []byte {
 
 func makeListener(port int) net.Listener {
 
-    addr := fmt.Sprintf("localhost:%d", port)
+    addr := fmt.Sprintf(":%d", port)
     listener, err := net.Listen("tcp4", addr)
 
     if err != nil {
@@ -38,6 +38,7 @@ func makeListener(port int) net.Listener {
 
 func handleConection(conn net.Conn, data []byte) {
 
+    defer conn.Close()
     log.Println("Incoming client connection", conn.RemoteAddr())
     bytes_written, err := conn.Write(data)
 
@@ -65,7 +66,6 @@ func ServeFile(path string, port int)  {
             continue
         }
 
-        handleConection(clientConn, fileStream)
-        clientConn.Close()
+        go handleConection(clientConn, fileStream)
     }
 }
