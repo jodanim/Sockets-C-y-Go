@@ -1,21 +1,21 @@
 #ifndef TIME_HPP
 #define TIME_HPP
 
+#include <string>
 #include <chrono>
 
-using namespace std::chrono;
+enum TimeUnit:int{nanoseconds,microseconds,miliseconds,seconds,minutes,hours};
 
 class Time{
 	public:
-		Time();
-		void setStartTime();
-        void setEndTime();
-		uint64_t getStartTime();
-        uint64_t getEndTime();
-        uint64_t getDiff();
+		Time(TimeUnit unit = nanoseconds);
+		std::string getTimeUnit();
+		void start();
+		double end();
 	private:
-		uint64_t startTime;
-        uint64_t endTime;
+		double startTime;
+		TimeUnit unit;
+		double now();
 };
 
-#endif
+#endif /* TIME_HPP */

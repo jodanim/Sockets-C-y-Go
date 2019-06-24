@@ -1,28 +1,35 @@
 #include "../lib/Time.hpp"
 
+Time::Time(TimeUnit unit){ this->unit = unit; }
 
-Time::Time(){
-    
+std::string Time::getTimeUnit(){
+	switch (unit){
+		default:			return "nanoseconds";
+		case microseconds:	return "microseconds";
+		case miliseconds: 	return "miliseconds";
+		case seconds:		return "seconds";
+		case minutes:		return "minutos";
+		case hours:			return "horas";
+	}
 }
+void Time::start(){	startTime = now(); }
 
-void Time::setStartTime(){
-    startTime = duration_cast<nanoseconds>
-              (high_resolution_clock::now().time_since_epoch()).count();
-}
+double Time::end(){ return now()-startTime; }
 
-void Time::setEndTime(){
-    endTime =  duration_cast<nanoseconds>
-              (high_resolution_clock::now().time_since_epoch()).count();
-}
-
-uint64_t Time::getStartTime(){
-	return startTime;
-}
-
-uint64_t Time::getEndTime(){
-    return endTime;
-}
-
-uint64_t Time::getDiff(){
-    return endTime - startTime;
+double Time::now(){
+	std::chrono::nanoseconds now = std::chrono::high_resolution_clock::now().time_since_epoch();
+	switch (unit){
+		default:
+			return (double)std::chrono::duration_cast<std::chrono::nanoseconds>(now).count();
+		case microseconds: 
+			return (double)std::chrono::duration_cast<std::chrono::nanoseconds>(now).count()*0.001;
+		case miliseconds: 	
+			return (double)std::chrono::duration_cast<std::chrono::microseconds>(now).count()*0.001;
+		case seconds:		
+			return (double)std::chrono::duration_cast<std::chrono::milliseconds>(now).count()*0.001;
+		case minutes:		
+			return (double)std::chrono::duration_cast<std::chrono::seconds>(now).count()/60;
+		case hours:			
+			return (double)std::chrono::duration_cast<std::chrono::minutes>(now).count()/60;
+	}
 }

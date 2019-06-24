@@ -1,54 +1,123 @@
-all: Socket.obj FileManager.obj Time.obj Server.obj Client.obj Server Client
-all_d: Socket.obj_d FileManager.obj_d Time.obj_d Server.obj_d Client.obj_d Server_d Client_d
+all: compile compile_d finished
 
-Socket.obj: lib/Socket.hpp src/Socket.cpp
-	g++ -c src/Socket.cpp -o obj/Socket.obj
+################################################################################
 
-Socket.obj_d: lib/Socket.hpp src/Socket.cpp
-	g++ -g -c src/Socket.cpp -o obj/debug/Socket.obj
+obj/Socket.obj: src/Socket.cpp
+	@echo "\033[1;35mGenerating \033[0;33m$@\033[0m"
+	@g++ -c $^ -o $@
 
-FileManager.obj: lib/FileManager.hpp src/FileManager.cpp
-	g++ -c src/FileManager.cpp -o obj/FileManager.obj
+obj/debug/Socket.obj: src/Socket.cpp
+	@echo "\033[1;36mGenerating \033[0;33m$@\033[0m"
+	@g++ -g -c $^ -o $@
 
-FileManager.obj_d: lib/FileManager.hpp src/FileManager.cpp
-	g++ -g -c src/FileManager.cpp -o obj/debug/FileManager.obj
+#-------------------------------------------------------------------------------
 
-Time.obj: lib/Time.hpp src/Time.cpp
-	g++ -c src/Time.cpp -o obj/Time.obj
+obj/Time.obj: src/Time.cpp
+	@echo "\033[1;35mGenerating \033[0;33m$@\033[0m"
+	@g++ -c $^ -o $@
 
-Time.obj_d: lib/Time.hpp src/Time.cpp
-	g++ -g -c src/Time.cpp -o obj/debug/Time.obj
+obj/debug/Time.obj: src/Time.cpp
+	@echo "\033[1;36mGenerating \033[0;33m$@\033[0m"
+	@g++ -g -c $^ -o $@
 
-###########################################################
+#-------------------------------------------------------------------------------
 
-Server.obj: src/Server.cpp
-	g++ -c src/Server.cpp -o obj/Server.obj
+obj/FileManager.obj: src/FileManager.cpp
+	@echo "\033[1;35mGenerating \033[0;33m$@\033[0m"
+	@g++ -c $^ -o $@
 
-Server.obj_d: src/Server.cpp
-	g++ -g -c src/Server.cpp -o obj/debug/Server.obj
 
-Client.obj: src/Client.cpp
-	g++ -c src/Client.cpp -o obj/Client.obj
+obj/debug/FileManager.obj: src/FileManager.cpp
+	@echo "\033[1;36mGenerating \033[0;33m$@\033[0m"
+	@g++ -g -c $^ -o $@
 
-Client.obj_d: src/Client.cpp
-	g++ -g -c src/Client.cpp -o obj/debug/Client.obj
+#-------------------------------------------------------------------------------
 
-Server: Socket.obj Time.obj FileManager.obj Server.obj 
-	g++ obj/Server.obj obj/Socket.obj obj/Time.obj obj/FileManager.obj -o bin/Server
+obj/Client.obj: src/Client.cpp
+	@echo "\033[1;35mGenerating \033[0;33m$@\033[0m"
+	@g++ -c $^ -o $@
 
-Server_d: Socket.obj_d Time.obj_d FileManager.obj_d Server.obj_d 
-	g++ -g obj/debug/Server.obj obj/debug/Socket.obj obj/debug/Time.obj obj/debug/FileManager.obj -o bin/debug/Server
+obj/debug/Client.obj: src/Client.cpp
+	@echo "\033[1;36mGenerating \033[0;33m$@\033[0m"
+	@g++ -g -c $^ -o $@
 
-Client: Socket.obj Time.obj FileManager.obj Client.obj
-	g++ obj/Client.obj obj/Socket.obj obj/Time.obj obj/FileManager.obj -o bin/Client
+#-------------------------------------------------------------------------------
 
-Client_d: Socket.obj_d Time.obj_d FileManager.obj_d Client.obj_d
-	g++ -g obj/debug/Client.obj obj/debug/Socket.obj obj/debug/Time.obj obj/debug/FileManager.obj -o bin/debug/Client
+obj/Server.obj: src/Server.cpp
+	@echo "\033[1;35mGenerating \033[0;33m$@\033[0m"
+	@g++ -c $^ -o $@
 
-run_server: Server
-	.\/bin/Server 20 .txt 1101
+obj/debug/Server.obj: src/Server.cpp
+	@echo "\033[1;36mGenerating \033[0;33m$@\033[0m"
+	@g++ -g -c $^ -o $@
+
+################################################################################
+
+bin/Client: obj/Socket.obj obj/FileManager.obj obj/Time.obj obj/Client.obj
+	@echo "\033[1;35mGenerating \033[0;33m$@\033[0m"
+	@g++ -pthread $^ -o $@
+
+bin/debug/Client: obj/debug/Socket.obj obj/debug/FileManager.obj obj/debug/Time.obj obj/debug/Client.obj 
+	@echo "\033[1;36mGenerating \033[0;33m$@\033[0m"
+	@g++ -pthread -g $^ -o $@
+
+#-------------------------------------------------------------------------------
+
+bin/Server: obj/Socket.obj obj/FileManager.obj obj/Time.obj obj/Server.obj
+	@echo "\033[1;35mGenerating \033[0;33m$@\033[0m"
+	@g++ -pthread $^ -o $@
+
+bin/debug/Server: obj/debug/Socket.obj obj/debug/FileManager.obj obj/debug/Time.obj obj/debug/Server.obj 
+	@echo "\033[1;36mGenerating \033[0;33m$@\033[0m"
+	@g++ -pthread -g $^ -o $@
+
+################################################################################
+
+compile:compileMessage bin/Client bin/Server
 	
-run_client: Client 
-	.\/bin/Client 20 1101 10.1.137.83
-	
+compile_d:compileMessage bin/debug/Client bin/debug/Server
 
+#-------------------------------------------------------------------------------
+
+run_Client:compile runMessage 
+	@.\/bin/Client 5 1101 192.168.0.16
+	@make finished --no-print-directory
+
+debug_Client:compile_d debugMessage
+	@gdb bin/debug/Client
+	@make finished --no-print-directory
+
+#-------------------------------------------------------------------------------
+
+run_Server:compile runMessage 
+	@.\/bin/Server 5 .txt 1101
+	@make finished --no-print-directory
+
+debug_Server:compile_d debugMessage
+	@gdb bin/debug/Server
+	@make finished --no-print-directory
+
+################################################################################
+
+compileMessage:
+	clear
+	@echo "\033[1;31m------------------------------------------------\033[0m"
+	@echo "\033[1;33m                   Compiling                    \033[0m"
+	@echo "\033[1;31m------------------------------------------------\033[0m\n"
+
+runMessage:
+	@echo "\n\033[1;31m------------------------------------------------\033[0m"
+	@echo   "\033[1;33m                    Running                     \033[0m"
+	@echo   "\033[1;31m------------------------------------------------\033[0m\n"
+
+debugMessage:
+	@echo "\n\033[1;31m------------------------------------------------\033[0m"
+	@echo   "\033[1;33m                   Debugging                    \033[0m"
+	@echo   "\033[1;31m------------------------------------------------\033[0m\n"
+
+finished:
+	@echo "\n\033[1;31m------------------------------------------------\033[0m"
+	@echo   "\033[1;33m                    Finished                    \033[0m"
+	@echo   "\033[1;31m------------------------------------------------\033[0m\n"
+
+################################################################################

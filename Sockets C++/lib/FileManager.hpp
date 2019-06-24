@@ -9,15 +9,13 @@ class FileManager{
 	public:
 		FileManager();
 		~FileManager();
-		void openTransferFile(std::string transferFilePath);
-		void openCsv(std::string csvPath);
-		void closeTransferFile();
-		void writeHeader(std::string header);
-		void writeTotal(uint64_t time);
+		void open(std::string path, bool write = false);
+		void close();
+		void writeln(std::string data);
+		void write(std::string data);
 		std::string readFile();
 	private:
-		std::ifstream transferFile;
-		std::ofstream csv;
+		std::fstream file;
 };
 
 #endif

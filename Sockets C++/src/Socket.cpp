@@ -24,38 +24,38 @@ int Socket::Connect(char * Host, int Port){
 	struct sockaddr_in  host_addr;
 	host_addr.sin_family = AF_INET;
 	inet_aton(ip,&host_addr.sin_addr);
-        host_addr.sin_port = htons(Port);
-        int len = sizeof(host_addr);
+	host_addr.sin_port = htons(Port);
+	int len = sizeof(host_addr);
 	int result = connect(sockfd, (sockaddr *) &host_addr,len);
 	if(result == -1)perror("Socket:ConnectIpv4");
 	return result;
 }
 
 int Socket::Connect( char *host, char *service ) {
-    size_t len;
-    int st;
-    struct addrinfo hints, *result, *rp;
+	size_t len;
+	int st;
+	struct addrinfo hints, *result, *rp;
 
-    memset(&hints, 0, sizeof(struct addrinfo));
-    hints.ai_family = AF_UNSPEC;
-    hints.ai_socktype = SOCK_STREAM;
-    hints.ai_flags = 0;
-    hints.ai_protocol = 0;          
-    
-    st = getaddrinfo( host, service, &hints, &result);
+	memset(&hints, 0, sizeof(struct addrinfo));
+	hints.ai_family = AF_UNSPEC;
+	hints.ai_socktype = SOCK_STREAM;
+	hints.ai_flags = 0;
+	hints.ai_protocol = 0;          
+
+	st = getaddrinfo( host, service, &hints, &result);
 	if(st != 0){
 		printf("%s\n",gai_strerror(st));
 	}
 
-    for ( rp = result; rp; rp = rp->ai_next ) {
-        st = connect( sockfd, rp->ai_addr, rp->ai_addrlen );
+	for ( rp = result; rp; rp = rp->ai_next ) {
+		st = connect( sockfd, rp->ai_addr, rp->ai_addrlen );
 		if(st == -1)perror("Socket:ConnectIpv6");
-        if(st == 0)break;
-    }
+		if(st == 0)break;
+	}
 
-    freeaddrinfo( result );
+	freeaddrinfo( result );
 
-    return st;
+	return st;
 }
 
 int Socket::Read(char * text, int len){
@@ -65,7 +65,7 @@ int Socket::Read(char * text, int len){
 	return result;
 }
 
-int Socket::Write(char * text){
+int Socket::Write(const char * text){
 	int len = strlen(text);
 	int result = write(sockfd,text,len);
 	if(result == -1)perror("Socket:Write");
@@ -134,6 +134,3 @@ int Socket::HostnameToIp(char *hostname , char *ip)
 	
 	return 1;
 }
-
-
-

@@ -20,13 +20,12 @@ class Socket{
 		int Connect(char * Host, int Port);
 		int Connect(char * Host, char * Service);
 		int Read(char * text, int len);
-		int Write(char * text);
+		int Write(const char * text);
 		int Shutdown(int);
 		int Close();
 		int Listen(int Queue);
 		int Bind(int Port);
 		Socket* Accept();
-		
 		int HostnameToIp(char *Hostname, char *ip);
 	private:
 		int sockfd;

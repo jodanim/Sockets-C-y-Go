@@ -3,34 +3,32 @@
 FileManager::FileManager(){}
 
 FileManager::~FileManager(){
-    transferFile.close();
-    csv.close();
+    close();
 }
 
-void FileManager::openTransferFile(std::string transferFilePath){
-    transferFile.open(transferFilePath);
+void FileManager::open(std::string path, bool write){
+    if(write)
+        file.open(path,std::fstream::out | std::fstream::trunc);
+    else
+        file.open(path);
 }
 
-void FileManager::openCsv(std::string csvPath){
-    csv.open(csvPath);
+void FileManager::close(){
+    file.close();
 }
 
-void FileManager::closeTransferFile(){
-    transferFile.close();
+void FileManager::writeln(std::string data){
+	file << data << std::endl;
 }
 
-void FileManager::writeHeader(std::string header){
-	csv << header << std::endl;
-}
-
-void FileManager::writeTotal(uint64_t time){
-    csv << time << std::endl;
+void FileManager::write(std::string data){
+	file << data;
 }
 
 std::string FileManager::readFile(){
     std::string buffer = "";
     std::string line;
-    while(getline(transferFile,line)){	
+    while(getline(file,line)){
         buffer += line;
     }
     return buffer;
