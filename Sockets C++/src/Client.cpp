@@ -19,12 +19,12 @@ int main(int argc, char**argv){
 	for(int i = 0; i < 16; i++){
 		for(int j = 0; j < std::atoi(argv[1]); j++){
 			s = new Socket('s',false);
-			s->Connect(argv[3], std::atoi(argv[2]));
+			s->Connect(argv[2], std::atoi(argv[3]));
 			time.start();
 			s->Write((const char *)argv[0]);
 			s->Read(buffer, 1048576);
 			int endTime = time.end();
-			fileManager.writeln(std::to_string(65536*(i+1))+","+std::to_string(j)+","+std::to_string(endTime));
+			fileManager.writeln(std::to_string(65536*(i+1))+","+std::to_string(j+1)+","+std::to_string(endTime));
 			s->Close();
 		}
 	}

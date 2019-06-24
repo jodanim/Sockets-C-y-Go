@@ -11,10 +11,10 @@ int main(int argc, char **argv){
 	int childpid;
 	char buffer[0];
 	Socket s1('s',false), *s2;
-	s1.Bind( std::atoi(argv[3]) );
+	s1.Bind( std::atoi(argv[2]) );
 	s1.Listen( 5 );
 	for(int i = 0; i < 16; i++){
-		std::string filename = "data/"+std::to_string(65536*(i+1))+"B"+argv[2];
+		std::string filename = "data/"+std::to_string(65536*(i+1))+"B"+argv[3];
 		fileManager.open(filename);
 		std::string file = fileManager.readFile();
 

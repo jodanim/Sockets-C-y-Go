@@ -80,7 +80,7 @@ compile_d:compileMessage bin/debug/Client bin/debug/Server
 #-------------------------------------------------------------------------------
 
 run_Client:compile runMessage 
-	@.\/bin/Client 5 1101 192.168.0.16
+	@.\/bin/Client 100 192.168.0.16 1101
 	@make finished --no-print-directory
 
 debug_Client:compile_d debugMessage
@@ -90,7 +90,7 @@ debug_Client:compile_d debugMessage
 #-------------------------------------------------------------------------------
 
 run_Server:compile runMessage 
-	@.\/bin/Server 5 .txt 1101
+	@.\/bin/Server 100 1101 .txt
 	@make finished --no-print-directory
 
 debug_Server:compile_d debugMessage
@@ -119,5 +119,22 @@ finished:
 	@echo "\n\033[1;31m------------------------------------------------\033[0m"
 	@echo   "\033[1;33m                    Finished                    \033[0m"
 	@echo   "\033[1;31m------------------------------------------------\033[0m\n"
+
+help:
+	clear
+	@echo "\033[1;31m------------------------------------------------\033[0m"
+	@echo "\033[1;33m                      Help                      \033[0m"
+	@echo "\033[1;31m------------------------------------------------\033[0m\n"
+	@echo "\033[1m To run the client give as parameters:\033[0m"
+	@echo "\033[1;32m 	1-	\033[0mNumber of repetitions\033[0m"
+	@echo "\033[1;32m 	2-	\033[0mServer Ip\033[0m"
+	@echo "\033[1;32m 	3-	\033[0mPort number\033[0m\n"
+	@echo "\033[1m To run the server give as parameters:\033[0m"
+	@echo "\033[1;32m 	1-	\033[0mNumber of repetitions\033[0m"
+	@echo "\033[1;32m 	2-	\033[0mPort number\033[0m"
+	@echo "\033[1;32m 	3-	\033[0mFile extention (Ex: .txt)\033[0m\n"
+	@echo "\033[1;31m------------------------------------------------\033[0m"
+	@echo "\033[1;33m                      Help                      \033[0m"
+	@echo "\033[1;31m------------------------------------------------\033[0m\n"
 
 ################################################################################
