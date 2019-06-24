@@ -31,12 +31,12 @@ func main()  {
     var size int
     var time time.Duration
 
-    file.WriteString("Size (B),Time (ns)\n")
+    file.WriteString("Size (B), Iter, Time (ns)\n")
 
     status := 20
     for i := 0; i < rep; i++ {
         size, time = client.GetFile(server, port)
-        line := fmt.Sprintf("%d,%d\n", size, time)
+        line := fmt.Sprintf("%d,%d,%d\n", size, i+1, time)
         file.WriteString(line)
 
         if i % status == 0 {
