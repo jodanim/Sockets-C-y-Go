@@ -4,17 +4,22 @@
 
 /**
  * arg1: repeticiones
- * arg2: extensión del archivo
- * arg3: puerto
+ * arg2: puerto
+ * arg3: extensión del archivo
  */
 int main(int argc, char **argv){
 	Time time;
 	FileManager fileManager;
 	int childpid;
 	char buffer[0];
+	std::cout<<"Waiting for a client to connect\n\n";
 	Socket s1('s',false), *s2;
 	s1.Bind( std::atoi(argv[2]) );
 	s1.Listen( 5 );
+	s2 = s1.Accept();
+	s2->Read(buffer, 0);
+	s2->Write(argv[1]);
+	s2->Close();
 	for(int i = 0; i < 16; i++){
 		std::string filename = "data/"+std::to_string(65536*(i+1))+"B"+argv[3];
 		fileManager.open(filename);
