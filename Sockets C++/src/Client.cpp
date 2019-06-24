@@ -17,6 +17,7 @@ int main(int argc, char**argv){
 	Socket *s;
 	int childpid;
 	for(int i = 0; i < 16; i++){
+		std::cout<<"Receiving file group number \033[33m" << i+1 << "\033[0m\n";
 		for(int j = 0; j < std::atoi(argv[1]); j++){
 			s = new Socket('s',false);
 			s->Connect(argv[2], std::atoi(argv[3]));
@@ -29,5 +30,6 @@ int main(int argc, char**argv){
 		}
 	}
 	fileManager.close();
+	time.programEnd();
 	return 0;
 }

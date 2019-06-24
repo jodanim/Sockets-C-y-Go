@@ -1,3 +1,4 @@
+#include "../lib/Time.hpp"
 #include "../lib/Socket.hpp"
 #include "../lib/FileManager.hpp"
 
@@ -7,6 +8,7 @@
  * arg3: puerto
  */
 int main(int argc, char **argv){
+	Time time;
 	FileManager fileManager;
 	int childpid;
 	char buffer[0];
@@ -17,7 +19,7 @@ int main(int argc, char **argv){
 		std::string filename = "data/"+std::to_string(65536*(i+1))+"B"+argv[3];
 		fileManager.open(filename);
 		std::string file = fileManager.readFile();
-
+		std::cout<<"Loading the file \033[33m" << filename << "\033[0m into the buffer\n";
 		int counter = 0;
 		while(counter < std::atoi(argv[1])){
 			s2 = s1.Accept();
@@ -34,5 +36,6 @@ int main(int argc, char **argv){
 		}
 		fileManager.close();
 	}
+	time.programEnd();
 	return 0;
 }

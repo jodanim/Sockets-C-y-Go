@@ -1,6 +1,7 @@
 #ifndef TIME_HPP
 #define TIME_HPP
 
+#include <iostream>
 #include <string>
 #include <chrono>
 
@@ -12,7 +13,9 @@ class Time{
 		std::string getTimeUnit();
 		void start();
 		double end();
+		void programEnd();
 	private:
+		double initialTime;
 		double startTime;
 		TimeUnit unit;
 		double now();

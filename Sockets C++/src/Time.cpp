@@ -1,6 +1,9 @@
 #include "../lib/Time.hpp"
 
-Time::Time(TimeUnit unit){ this->unit = unit; }
+Time::Time(TimeUnit unit){ 
+	this->unit = unit;
+	initialTime = now();
+}
 
 std::string Time::getTimeUnit(){
 	switch (unit){
@@ -15,6 +18,10 @@ std::string Time::getTimeUnit(){
 void Time::start(){	startTime = now(); }
 
 double Time::end(){ return now()-startTime; }
+
+void Time::programEnd(){ 
+	std::cout<<std::endl<<"Elapsed Time: "<< now() - initialTime << " " <<getTimeUnit()<<std::endl;
+}
 
 double Time::now(){
 	std::chrono::nanoseconds now = std::chrono::high_resolution_clock::now().time_since_epoch();
