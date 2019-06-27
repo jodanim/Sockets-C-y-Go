@@ -14,8 +14,11 @@ class FileManager{
 		void writeln(std::string data);
 		void write(std::string data);
 		std::string readFile();
+		std::string readSome(int bytes);
+		int getBytes();
 	private:
 		std::fstream file;
+		std::string unbufered = "";
 };
 
 #endif

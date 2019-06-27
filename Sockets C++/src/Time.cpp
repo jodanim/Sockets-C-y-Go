@@ -20,7 +20,7 @@ void Time::start(){	startTime = now(); }
 double Time::end(){ return now()-startTime; }
 
 void Time::programEnd(){ 
-	std::cout<<std::endl<<"Elapsed Time: "<< now() - initialTime << " " <<getTimeUnit()<<std::endl;
+	std::cout<<std::endl<<"Elapsed Time: \033[33m"<< now() - initialTime << " " <<getTimeUnit()<<"\033[0m"<<std::endl;
 }
 
 double Time::now(){
