@@ -42,7 +42,7 @@ func Open(addr *net.TCPAddr) *net.TCPConn {
 
 func ReadFile(conn *net.TCPConn) []byte {
 
-    BUF_SIZE := 256
+    BUF_SIZE := 1024*4
     var buffer_in, file_buff []byte
     buffer_in = make([]byte, BUF_SIZE)
     file_buff = make([]byte, 0, BUF_SIZE)
