@@ -49,97 +49,122 @@ compile_server:compileMessage bin/Server
 
 #-------------------------------------------------------------------------------
 
-ip := 0.0.0.0
+ip := 10.1.4.137
 repetitions := 100
 
 #-------------------------------------------------------------------------------
 
 run_client:compile_client runClientMessage 
-	@.\/bin/Client $(ip) 1101
+	@.\/bin/Client $(ip) 9000
 	@echo "\n\033[1;32m------------------------------------------------\033[0m"
-	@sleep 1
-	@.\/bin/Client $(ip) 1102
+	@.\/bin/Client $(ip) 9001
 	@echo "\n\033[1;32m------------------------------------------------\033[0m"
-	@sleep 1
-	@.\/bin/Client $(ip) 1103
+	@.\/bin/Client $(ip) 9002
 	@echo "\n\033[1;32m------------------------------------------------\033[0m"
-	@sleep 1
-	@.\/bin/Client $(ip) 1104
+	@.\/bin/Client $(ip) 9003
 	@echo "\n\033[1;32m------------------------------------------------\033[0m"
-	@sleep 1
-	@.\/bin/Client $(ip) 1105
+	@.\/bin/Client $(ip) 9004
 	@echo "\n\033[1;32m------------------------------------------------\033[0m"
-	@sleep 1
-	@.\/bin/Client $(ip) 1106
+	@.\/bin/Client $(ip) 9005
 	@echo "\n\033[1;32m------------------------------------------------\033[0m"
-	@sleep 1
-	@.\/bin/Client $(ip) 1107
+	@.\/bin/Client $(ip) 9006
 	@echo "\n\033[1;32m------------------------------------------------\033[0m"
-	@sleep 1
-	@.\/bin/Client $(ip) 1108
+	@.\/bin/Client $(ip) 9007
 	@echo "\n\033[1;32m------------------------------------------------\033[0m"
-	@sleep 1
-	@.\/bin/Client $(ip) 1109
+	@.\/bin/Client $(ip) 9008
 	@echo "\n\033[1;32m------------------------------------------------\033[0m"
-	@sleep 1
-	@.\/bin/Client $(ip) 1110
+	@.\/bin/Client $(ip) 9009
 	@echo "\n\033[1;32m------------------------------------------------\033[0m"
-	@sleep 1
-	@.\/bin/Client $(ip) 1111
+	@.\/bin/Client $(ip) 9010
 	@echo "\n\033[1;32m------------------------------------------------\033[0m"
-	@sleep 1
-	@.\/bin/Client $(ip) 1112
+	@.\/bin/Client $(ip) 9011
 	@echo "\n\033[1;32m------------------------------------------------\033[0m"
-	@sleep 1
-	@.\/bin/Client $(ip) 1113
+	@.\/bin/Client $(ip) 9012
 	@echo "\n\033[1;32m------------------------------------------------\033[0m"
-	@sleep 1
-	@.\/bin/Client $(ip) 1114
+	@.\/bin/Client $(ip) 9013
 	@echo "\n\033[1;32m------------------------------------------------\033[0m"
-	@sleep 1
-	@.\/bin/Client $(ip) 1115
+	@.\/bin/Client $(ip) 9014
 	@echo "\n\033[1;32m------------------------------------------------\033[0m"
-	@sleep 1
-	@.\/bin/Client $(ip) 1116
-	@sleep 1
+	@.\/bin/Client $(ip) 9015
 	@make finished --no-print-directory
+
+run_client_once:compile_client runClientMessage 
+	@.\/bin/Client $(ip) 9000
 
 #-------------------------------------------------------------------------------
 
 run_server:compile_server runServerMessage 
-	@.\/bin/Server 1101 $(repetitions) 64KB.txt
+	@.\/bin/Server 9000 $(repetitions) 65334KB.txt
 	@rm output/output.csv
 	@echo "\n\033[1;32m------------------------------------------------\033[0m"
-	@.\/bin/Server 1102 $(repetitions) 128KB.txt
+	@.\/bin/Server 9001 $(repetitions) 128KB.txt
 	@echo "\n\033[1;32m------------------------------------------------\033[0m"
-	@.\/bin/Server 1103 $(repetitions) 192KB.txt
+	@.\/bin/Server 9002 $(repetitions) 192KB.txt
 	@echo "\n\033[1;32m------------------------------------------------\033[0m"
-	@.\/bin/Server 1104 $(repetitions) 256KB.txt
+	@.\/bin/Server 9003 $(repetitions) 256KB.txt
 	@echo "\n\033[1;32m------------------------------------------------\033[0m"
-	@.\/bin/Server 1105 $(repetitions) 320KB.txt
+	@.\/bin/Server 9004 $(repetitions) 320KB.txt
 	@echo "\n\033[1;32m------------------------------------------------\033[0m"
-	@.\/bin/Server 1106 $(repetitions) 384KB.txt
+	@.\/bin/Server 9005 $(repetitions) 384KB.txt
 	@echo "\n\033[1;32m------------------------------------------------\033[0m"
-	@.\/bin/Server 1107 $(repetitions) 448KB.txt
+	@.\/bin/Server 9006 $(repetitions) 448KB.txt
 	@echo "\n\033[1;32m------------------------------------------------\033[0m"
-	@.\/bin/Server 1108 $(repetitions) 512KB.txt
+	@.\/bin/Server 9007 $(repetitions) 512KB.txt
 	@echo "\n\033[1;32m------------------------------------------------\033[0m"
-	@.\/bin/Server 1109 $(repetitions) 576KB.txt
+	@.\/bin/Server 9008 $(repetitions) 576KB.txt
 	@echo "\n\033[1;32m------------------------------------------------\033[0m"
-	@.\/bin/Server 1110 $(repetitions) 640KB.txt
+	@.\/bin/Server 9009 $(repetitions) 640KB.txt
 	@echo "\n\033[1;32m------------------------------------------------\033[0m"
-	@.\/bin/Server 1111 $(repetitions) 704KB.txt
+	@.\/bin/Server 9010 $(repetitions) 704KB.txt
 	@echo "\n\033[1;32m------------------------------------------------\033[0m"
-	@.\/bin/Server 1112 $(repetitions) 768KB.txt
+	@.\/bin/Server 9011 $(repetitions) 768KB.txt
 	@echo "\n\033[1;32m------------------------------------------------\033[0m"
-	@.\/bin/Server 1113 $(repetitions) 832KB.txt
+	@.\/bin/Server 9012 $(repetitions) 832KB.txt
 	@echo "\n\033[1;32m------------------------------------------------\033[0m"
-	@.\/bin/Server 1114 $(repetitions) 896KB.txt
+	@.\/bin/Server 9013 $(repetitions) 896KB.txt
 	@echo "\n\033[1;32m------------------------------------------------\033[0m"
-	@.\/bin/Server 1115 $(repetitions) 960KB.txt
+	@.\/bin/Server 9014 $(repetitions) 960KB.txt
 	@echo "\n\033[1;32m------------------------------------------------\033[0m"
-	@.\/bin/Server 1116 $(repetitions) 1MB.txt
+	@.\/bin/Server 9015 $(repetitions) 1MB.txt
 	@make finished --no-print-directory
+
+run_server_png:compile_server runServerMessage 
+	@.\/bin/Server 9000 $(repetitions) 1.png
+	@rm output/output.csv
+	@echo "\n\033[1;32m------------------------------------------------\033[0m"
+	@.\/bin/Server 9001 $(repetitions) 2.png
+	@echo "\n\033[1;32m------------------------------------------------\033[0m"
+	@.\/bin/Server 9002 $(repetitions) 3.png
+	@echo "\n\033[1;32m------------------------------------------------\033[0m"
+	@.\/bin/Server 9003 $(repetitions) 4.png
+	@echo "\n\033[1;32m------------------------------------------------\033[0m"
+	@.\/bin/Server 9004 $(repetitions) 5.png
+	@echo "\n\033[1;32m------------------------------------------------\033[0m"
+	@.\/bin/Server 9005 $(repetitions) 6.png
+	@echo "\n\033[1;32m------------------------------------------------\033[0m"
+	@.\/bin/Server 9006 $(repetitions) 7.png
+	@echo "\n\033[1;32m------------------------------------------------\033[0m"
+	@.\/bin/Server 9007 $(repetitions) 8.png
+	@echo "\n\033[1;32m------------------------------------------------\033[0m"
+	@.\/bin/Server 9008 $(repetitions) 9.png
+	@echo "\n\033[1;32m------------------------------------------------\033[0m"
+	@.\/bin/Server 9009 $(repetitions) 10.png
+	@echo "\n\033[1;32m------------------------------------------------\033[0m"
+	@.\/bin/Server 9010 $(repetitions) 11.png
+	@echo "\n\033[1;32m------------------------------------------------\033[0m"
+	@.\/bin/Server 9011 $(repetitions) 12.png
+	@echo "\n\033[1;32m------------------------------------------------\033[0m"
+	@.\/bin/Server 9012 $(repetitions) 13.png
+	@echo "\n\033[1;32m------------------------------------------------\033[0m"
+	@.\/bin/Server 9013 $(repetitions) 14.png
+	@echo "\n\033[1;32m------------------------------------------------\033[0m"
+	@.\/bin/Server 9014 $(repetitions) 15.png
+	@echo "\n\033[1;32m------------------------------------------------\033[0m"
+	@.\/bin/Server 9015 $(repetitions) 16.png
+	@make finished --no-print-directory
+
+run_server_arg:
+	@.\/bin/Server 9000 $(repetitions) $(file)
 
 ################################################################################
 
