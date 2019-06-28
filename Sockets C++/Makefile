@@ -1,4 +1,4 @@
-all: compile compile_d finished
+all: compile_client compile_server finished
 
 ################################################################################
 
@@ -6,19 +6,11 @@ obj/Socket.obj: src/Socket.cpp
 	@echo "\033[1;35mGenerating \033[0;33m$@\033[0m"
 	@g++ -c $^ -o $@
 
-obj/debug/Socket.obj: src/Socket.cpp
-	@echo "\033[1;36mGenerating \033[0;33m$@\033[0m"
-	@g++ -g -c $^ -o $@
-
 #-------------------------------------------------------------------------------
 
 obj/Time.obj: src/Time.cpp
 	@echo "\033[1;35mGenerating \033[0;33m$@\033[0m"
 	@g++ -c $^ -o $@
-
-obj/debug/Time.obj: src/Time.cpp
-	@echo "\033[1;36mGenerating \033[0;33m$@\033[0m"
-	@g++ -g -c $^ -o $@
 
 #-------------------------------------------------------------------------------
 
@@ -26,20 +18,11 @@ obj/FileManager.obj: src/FileManager.cpp
 	@echo "\033[1;35mGenerating \033[0;33m$@\033[0m"
 	@g++ -c $^ -o $@
 
-
-obj/debug/FileManager.obj: src/FileManager.cpp
-	@echo "\033[1;36mGenerating \033[0;33m$@\033[0m"
-	@g++ -g -c $^ -o $@
-
 #-------------------------------------------------------------------------------
 
 obj/Client.obj: src/Client.cpp
 	@echo "\033[1;35mGenerating \033[0;33m$@\033[0m"
 	@g++ -c $^ -o $@
-
-obj/debug/Client.obj: src/Client.cpp
-	@echo "\033[1;36mGenerating \033[0;33m$@\033[0m"
-	@g++ -g -c $^ -o $@
 
 #-------------------------------------------------------------------------------
 
@@ -47,19 +30,11 @@ obj/Server.obj: src/Server.cpp
 	@echo "\033[1;35mGenerating \033[0;33m$@\033[0m"
 	@g++ -c $^ -o $@
 
-obj/debug/Server.obj: src/Server.cpp
-	@echo "\033[1;36mGenerating \033[0;33m$@\033[0m"
-	@g++ -g -c $^ -o $@
-
 ################################################################################
 
 bin/Client: obj/Socket.obj obj/FileManager.obj obj/Time.obj obj/Client.obj
 	@echo "\033[1;35mGenerating \033[0;33m$@\033[0m"
 	@g++ -pthread $^ -o $@
-
-bin/debug/Client: obj/debug/Socket.obj obj/debug/FileManager.obj obj/debug/Time.obj obj/debug/Client.obj 
-	@echo "\033[1;36mGenerating \033[0;33m$@\033[0m"
-	@g++ -pthread -g $^ -o $@
 
 #-------------------------------------------------------------------------------
 
@@ -67,34 +42,103 @@ bin/Server: obj/Socket.obj obj/FileManager.obj obj/Time.obj obj/Server.obj
 	@echo "\033[1;35mGenerating \033[0;33m$@\033[0m"
 	@g++ -pthread $^ -o $@
 
-bin/debug/Server: obj/debug/Socket.obj obj/debug/FileManager.obj obj/debug/Time.obj obj/debug/Server.obj 
-	@echo "\033[1;36mGenerating \033[0;33m$@\033[0m"
-	@g++ -pthread -g $^ -o $@
-
 ################################################################################
 
-compile:compileMessage bin/Client bin/Server
-	
-compile_d:compileMessage bin/debug/Client bin/debug/Server
+compile_client:compileMessage bin/Client
+compile_server:compileMessage bin/Server
 
 #-------------------------------------------------------------------------------
 
-run_Client:compile runMessage 
-	@.\/bin/Client 192.168.0.16 1101
-	@make finished --no-print-directory
+ip := 0.0.0.0
+repetitions := 100
 
-debug_Client:compile_d debugMessage
-	@gdb bin/debug/Client
+#-------------------------------------------------------------------------------
+
+run_client:compile_client runClientMessage 
+	@.\/bin/Client $(ip) 1101
+	@echo "\n\033[1;32m------------------------------------------------\033[0m"
+	@sleep 1
+	@.\/bin/Client $(ip) 1102
+	@echo "\n\033[1;32m------------------------------------------------\033[0m"
+	@sleep 1
+	@.\/bin/Client $(ip) 1103
+	@echo "\n\033[1;32m------------------------------------------------\033[0m"
+	@sleep 1
+	@.\/bin/Client $(ip) 1104
+	@echo "\n\033[1;32m------------------------------------------------\033[0m"
+	@sleep 1
+	@.\/bin/Client $(ip) 1105
+	@echo "\n\033[1;32m------------------------------------------------\033[0m"
+	@sleep 1
+	@.\/bin/Client $(ip) 1106
+	@echo "\n\033[1;32m------------------------------------------------\033[0m"
+	@sleep 1
+	@.\/bin/Client $(ip) 1107
+	@echo "\n\033[1;32m------------------------------------------------\033[0m"
+	@sleep 1
+	@.\/bin/Client $(ip) 1108
+	@echo "\n\033[1;32m------------------------------------------------\033[0m"
+	@sleep 1
+	@.\/bin/Client $(ip) 1109
+	@echo "\n\033[1;32m------------------------------------------------\033[0m"
+	@sleep 1
+	@.\/bin/Client $(ip) 1110
+	@echo "\n\033[1;32m------------------------------------------------\033[0m"
+	@sleep 1
+	@.\/bin/Client $(ip) 1111
+	@echo "\n\033[1;32m------------------------------------------------\033[0m"
+	@sleep 1
+	@.\/bin/Client $(ip) 1112
+	@echo "\n\033[1;32m------------------------------------------------\033[0m"
+	@sleep 1
+	@.\/bin/Client $(ip) 1113
+	@echo "\n\033[1;32m------------------------------------------------\033[0m"
+	@sleep 1
+	@.\/bin/Client $(ip) 1114
+	@echo "\n\033[1;32m------------------------------------------------\033[0m"
+	@sleep 1
+	@.\/bin/Client $(ip) 1115
+	@echo "\n\033[1;32m------------------------------------------------\033[0m"
+	@sleep 1
+	@.\/bin/Client $(ip) 1116
+	@sleep 1
 	@make finished --no-print-directory
 
 #-------------------------------------------------------------------------------
 
-run_Server:compile runMessage 
-	@.\/bin/Server 100 1101 .txt
-	@make finished --no-print-directory
-
-debug_Server:compile_d debugMessage
-	@gdb bin/debug/Server
+run_server:compile_server runServerMessage 
+	@.\/bin/Server 1101 $(repetitions) 64KB.txt
+	@rm output/output.csv
+	@echo "\n\033[1;32m------------------------------------------------\033[0m"
+	@.\/bin/Server 1102 $(repetitions) 128KB.txt
+	@echo "\n\033[1;32m------------------------------------------------\033[0m"
+	@.\/bin/Server 1103 $(repetitions) 192KB.txt
+	@echo "\n\033[1;32m------------------------------------------------\033[0m"
+	@.\/bin/Server 1104 $(repetitions) 256KB.txt
+	@echo "\n\033[1;32m------------------------------------------------\033[0m"
+	@.\/bin/Server 1105 $(repetitions) 320KB.txt
+	@echo "\n\033[1;32m------------------------------------------------\033[0m"
+	@.\/bin/Server 1106 $(repetitions) 384KB.txt
+	@echo "\n\033[1;32m------------------------------------------------\033[0m"
+	@.\/bin/Server 1107 $(repetitions) 448KB.txt
+	@echo "\n\033[1;32m------------------------------------------------\033[0m"
+	@.\/bin/Server 1108 $(repetitions) 512KB.txt
+	@echo "\n\033[1;32m------------------------------------------------\033[0m"
+	@.\/bin/Server 1109 $(repetitions) 576KB.txt
+	@echo "\n\033[1;32m------------------------------------------------\033[0m"
+	@.\/bin/Server 1110 $(repetitions) 640KB.txt
+	@echo "\n\033[1;32m------------------------------------------------\033[0m"
+	@.\/bin/Server 1111 $(repetitions) 704KB.txt
+	@echo "\n\033[1;32m------------------------------------------------\033[0m"
+	@.\/bin/Server 1112 $(repetitions) 768KB.txt
+	@echo "\n\033[1;32m------------------------------------------------\033[0m"
+	@.\/bin/Server 1113 $(repetitions) 832KB.txt
+	@echo "\n\033[1;32m------------------------------------------------\033[0m"
+	@.\/bin/Server 1114 $(repetitions) 896KB.txt
+	@echo "\n\033[1;32m------------------------------------------------\033[0m"
+	@.\/bin/Server 1115 $(repetitions) 960KB.txt
+	@echo "\n\033[1;32m------------------------------------------------\033[0m"
+	@.\/bin/Server 1116 $(repetitions) 1MB.txt
 	@make finished --no-print-directory
 
 ################################################################################
@@ -105,15 +149,15 @@ compileMessage:
 	@echo "\033[1;33m                   Compiling                    \033[0m"
 	@echo "\033[1;31m------------------------------------------------\033[0m\n"
 
-runMessage:
+runClientMessage:
 	@echo "\n\033[1;31m------------------------------------------------\033[0m"
-	@echo   "\033[1;33m                    Running                     \033[0m"
-	@echo   "\033[1;31m------------------------------------------------\033[0m\n"
+	@echo   "\033[1;33m                 Running Client                 \033[0m"
+	@echo   "\033[1;31m------------------------------------------------\033[0m"
 
-debugMessage:
+runServerMessage:
 	@echo "\n\033[1;31m------------------------------------------------\033[0m"
-	@echo   "\033[1;33m                   Debugging                    \033[0m"
-	@echo   "\033[1;31m------------------------------------------------\033[0m\n"
+	@echo   "\033[1;33m                 Running Server                 \033[0m"
+	@echo   "\033[1;31m------------------------------------------------\033[0m"
 
 finished:
 	@echo "\n\033[1;31m------------------------------------------------\033[0m"
@@ -129,9 +173,9 @@ help:
 	@echo "\033[1;32m 	1- \033[0mServer Ip\033[0m"
 	@echo "\033[1;32m 	2- \033[0mPort number\033[0m"
 	@echo "\033[1m To run the server give as parameters:\033[0m"
-	@echo "\033[1;32m 	1- \033[0mNumber of repetitions\033[0m"
-	@echo "\033[1;32m 	2- \033[0mPort number\033[0m"
-	@echo "\033[1;32m 	3- \033[0mFile extention (Ex: .txt)\033[0m\n"
+	@echo "\033[1;32m 	1- \033[0mPort number\033[0m"
+	@echo "\033[1;32m 	2- \033[0mNumber of repetitions\033[0m"
+	@echo "\033[1;32m 	3- \033[0mFile name\033[0m\n"
 	@echo "\033[1;31m------------------------------------------------\033[0m"
 	@echo "\033[1;33m                      Help                      \033[0m"
 	@echo "\033[1;31m------------------------------------------------\033[0m\n"

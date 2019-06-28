@@ -5,10 +5,12 @@
 
 *.json
 
+
+Sockets C\+\+/data/
+
+
 Sockets C\+\+/bin/
 
 Sockets C\+\+/obj/
 
-Sockets C\+\+/data/
-
-Sockets C\+\+/output/
+Sockets C\+\+/output/output\.csv
