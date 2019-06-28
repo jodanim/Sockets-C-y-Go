@@ -4,19 +4,33 @@ import (
     "flag"
     "server"
     "log"
+    "os"
 )
 
 func main()  {
 
+    // log.SetOutput(os.Stdout)
     log.Println("Server program startup")
-    var filename string
+    var path string
     var port int
+    var file_info os.FileInfo
 
-    flag.StringVar(&filename, "filename", "test.txt", "Nombre del archivo que va a pedir al servidor")
+    flag.StringVar(&path, "path", "test.txt", "Nombre del archivo o directorio con archivos que va a pedir al servidor")
     flag.IntVar(&port, "port", 9000, "Puerto del servidor")
 
     flag.Parse()
 
-    server.ServeFile(filename, port)
+    file_info, err := os.Stat(path)
+
+    if (err != nil) {
+        log.Println(err)
+        return
+    }
+
+    if (file_info.IsDir()) {
+        server.ServeDir(path, port)
+    } else {
+        server.ServeFile(path, port)
+    }
 
 }
