@@ -40,12 +40,12 @@ func Open(addr *net.TCPAddr) *net.TCPConn {
     return conn
 }
 
-func ReadFile(conn *net.TCPConn) []byte {
+func ReadFile(conn *net.TCPConn) int {
 
-    BUF_SIZE := 1024*4
-    var buffer_in, file_buff []byte
+    BUF_SIZE := 1024
+    var buffer_in []byte
     buffer_in = make([]byte, BUF_SIZE)
-    file_buff = make([]byte, 0, BUF_SIZE)
+    //file_buff = make([]byte, 0, BUF_SIZE)
     var size int
     var err error
 
@@ -53,6 +53,7 @@ func ReadFile(conn *net.TCPConn) []byte {
     //size, err = buffered_rw.WriteString("GET\n")
     //size, err = buffered_rw.ReadBytes()
 
+    total_size := 0
     for err == nil {
         size, err = conn.Read(buffer_in)
         if err == io.EOF {
@@ -65,10 +66,12 @@ func ReadFile(conn *net.TCPConn) []byte {
         // var texto string = string(buffer)
         // fmt.Printf("Recibimos %d bytes\n", size)
         // fmt.Println(string(buffer_in[:size]))
-        file_buff = append(file_buff, buffer_in[:size]...)
+        // file_buff = append(file_buff, buffer_in[:size]...)
+        total_size += size
     }
 
-    return file_buff
+    // return file_buff
+    return total_size
 }
 
 func GetFile(host string, port int) (int, time.Duration) {
@@ -79,11 +82,11 @@ func GetFile(host string, port int) (int, time.Duration) {
     defer conn.Close()
 
     start := time.Now()
-    file := ReadFile(conn)
+    file_size := ReadFile(conn)
     end := time.Now()
 
     trans_time := end.Sub(start)
-    file_size := len(file)
+    //file_size := len(file)
 
     // fmt.Println("Conexión finalizada")
     //fmt.Println(string(file))
