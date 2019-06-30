@@ -1,4 +1,4 @@
-all: compile_client compile_server finished
+all: clear compile_client compile_server finished
 
 ################################################################################
 
@@ -44,22 +44,14 @@ bin/Server: obj/Socket.obj obj/FileManager.obj obj/Time.obj obj/Server.obj
 
 ################################################################################
 
-compile_client:compileMessage bin/Client
-compile_server:compileMessage bin/Server
-
-#-------------------------------------------------------------------------------
-
-ip := 10.1.4.137
-repetitions := 100
+compile_client: clear compileMessage bin/Client
+compile_server: clear compileMessage bin/Server
 
 #-------------------------------------------------------------------------------
 
 run_client:compile_client runClientMessage 
-	@.\/bin/Client $(ip) 9000 5 output
+	@.\/bin/Client 0.0.0.0 9000 100 output
 	@make finished --no-print-directory
-
-run_client_once:compile_client runClientMessage 
-	@.\/bin/Client $(ip) 9000
 
 #-------------------------------------------------------------------------------
 
@@ -72,8 +64,10 @@ run_server_arg:
 
 ################################################################################
 
-compileMessage:
+clear:
 	clear
+
+compileMessage:
 	@echo "\033[1;31m------------------------------------------------\033[0m"
 	@echo "\033[1;33m                   Compiling                    \033[0m"
 	@echo "\033[1;31m------------------------------------------------\033[0m\n"

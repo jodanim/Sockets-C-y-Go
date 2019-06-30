@@ -27,8 +27,11 @@ int main(int argc, char**argv){
 
 	char serverIp[15];
 	strncpy(serverIp,argv[1],15);
+
 	int port = atoi(argv[2]);
+
 	int repetitions = atoi(argv[3]);
+	
 	std::string output = "output/";
 	output += argv[4];
 	output += ".csv";
@@ -38,7 +41,6 @@ int main(int argc, char**argv){
 	char buffer[BUF_SIZE];
 	
 	Socket *s1;
-	
 
 	std::cout<<"\nReceiving file \033[33m"<< repetitions << "\033[0m time"<<(repetitions==1?"":"s")<<".\n";
 
@@ -47,16 +49,11 @@ int main(int argc, char**argv){
 		int bytes = 0, size = 0;	
 		s1 = new Socket('s',false);
 		if(s1->Connect(serverIp, port)==-1)exit(EXIT_FAILURE);
-		usleep(10000);
-		int i = 0;
 		time.start();
 		do{
-			size += bytes;
-			bytes = s1->Read(buffer, BUF_SIZE);
+			size +=	bytes = s1->Read(buffer, BUF_SIZE);
 		}while(bytes != 0);
 		int endTime = time.end();
-		debug(size,1);
-	
 		s1->Close();
 		fileManager.writeln(std::to_string(size)+","+std::to_string(j+1)+","+std::to_string(endTime));
 	}

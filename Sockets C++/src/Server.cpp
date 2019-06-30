@@ -41,29 +41,9 @@ int main(int argc, char **argv){
 	if(s1.Bind(std::atoi(argv[1]))==-1)exit(EXIT_FAILURE);
 	s1.Listen( 5 );
 
-	// waiting for conection
-	// std::cout<<"\nWaiting for client to connect on the port \033[33m"<<argv[1]<<"\033[0m.\n\n";	
-	// s2 = s1.Accept();
-		
-	// opening the first file
-	// std::string filename("data/");
-	// filename += argv[2];
-	// fileManager.open(filename);
-	
-	// int bytes = fileManager.getBytes();
-	// int size = bytes;
-	// std::string dataMeasurement = getDataMeasurement(size);
-	// fileManager.close();
-
-	// std::string extension(argv[3]);
-	// extension = extension.substr(extension.size()-4);
-	// filename = "data/"+std::to_string(size)+dataMeasurement+extension;
-
 	std::string filename = argv[2];
-	
-	// std::cout<<"Sending file the file \033[33m" << filename << "\033[0m, \033[33m"<< repetitions << "\033[0m time"<<(repetitions==1?"":"s")<<".\n";
-	// s2->Write(std::to_string(bytes).c_str());
 	int connection = 0;
+
 	std::cout<<"\nServing the file \033[33m\""<< filename << "\"\033[0m.\n";	
 	forever{
 		std::cout<<"\033[sWaiting for client to connect on the port \033[33m"<<argv[1]<<"\033[0m.";	
@@ -86,10 +66,6 @@ int main(int argc, char **argv){
 		}
 		std::cout<<"\nConnections: \033[33m"<< ++connection <<"\033[0m.";
 		wait(0);
-		// std::cout<<"\033[u\033[0JThe file \033[33m"<< filename <<"\033[0m was sent.\n\n";
-		
-		
-		
 		std::cout<<"\033[u\033[0K";
 	}
 }

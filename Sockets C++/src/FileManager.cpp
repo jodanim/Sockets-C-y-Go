@@ -39,24 +39,6 @@ std::string FileManager::readFile(){
     return buffer;
 }
 std::string FileManager::readSome(int bytes){ 
-    // if(!file.eof()){
-    //     std::string buffer = unbuffered;
-    //     unbuffered = "";
-    //     int bufferSize = buffer.size();
-    //     std::string line;
-    //     while (!file.eof() && bufferSize < bytes) {
-    //         getline(file,line);
-    //         buffer += line;
-    //         buffer += "\n";
-    //         bufferSize += line.size()+1;
-    //     }
-    //     if(bufferSize > bytes){
-    //         unbuffered = buffer.substr(bytes);
-    //         buffer = buffer.substr(0,bytes);
-    //     }
-    //     return buffer;
-    // }
-    // return "";
     if(!file.eof()){
         std::string buffer = unbuffered;
         unbuffered = "";

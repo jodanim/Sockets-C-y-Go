@@ -127,6 +127,6 @@ int Socket::HostnameToIp(char *hostname , char *ip)
 		strcpy(ip , inet_ntoa(*addr_list[i]) );
 		return 0;
 	}
-	
+
 	return 1;
 }
