@@ -59,18 +59,14 @@ int Socket::Connect( char *host, char *service ) {
 }
 
 int Socket::Read(char * text, int len){
-	memset(text, 0, len);
-	int result = read(sockfd,text,len);
-	if(result == -1)perror("Socket:Read");
-	return result;
+	return recv(sockfd,text,len,0);
 }
 
 int Socket::Write(const char * text){
 	int len = strlen(text);
-	int result = write(sockfd,text,len);
+	int result = send(sockfd, text, len, 0);
 	if(result == -1)perror("Socket:Write");
 	return result;
-	
 }
 
 int Socket::Shutdown(int o){

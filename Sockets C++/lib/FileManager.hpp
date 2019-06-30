@@ -1,6 +1,7 @@
 #ifndef FILEMANAGER_HPP
 #define FILEMANAGER_HPP
 
+#include <vector>
 #include <string>
 #include <fstream>
 #include <iostream>
@@ -18,7 +19,9 @@ class FileManager{
 		int getBytes();
 	private:
 		std::fstream file;
-		std::string unbufered = "";
+		std::string unbuffered = "";
+		std::vector<std::string> files;
+		std::string path;
 };
 
 #endif

@@ -55,37 +55,7 @@ repetitions := 100
 #-------------------------------------------------------------------------------
 
 run_client:compile_client runClientMessage 
-	@.\/bin/Client $(ip) 9000
-	@echo "\n\033[1;32m------------------------------------------------\033[0m"
-	@.\/bin/Client $(ip) 9001
-	@echo "\n\033[1;32m------------------------------------------------\033[0m"
-	@.\/bin/Client $(ip) 9002
-	@echo "\n\033[1;32m------------------------------------------------\033[0m"
-	@.\/bin/Client $(ip) 9003
-	@echo "\n\033[1;32m------------------------------------------------\033[0m"
-	@.\/bin/Client $(ip) 9004
-	@echo "\n\033[1;32m------------------------------------------------\033[0m"
-	@.\/bin/Client $(ip) 9005
-	@echo "\n\033[1;32m------------------------------------------------\033[0m"
-	@.\/bin/Client $(ip) 9006
-	@echo "\n\033[1;32m------------------------------------------------\033[0m"
-	@.\/bin/Client $(ip) 9007
-	@echo "\n\033[1;32m------------------------------------------------\033[0m"
-	@.\/bin/Client $(ip) 9008
-	@echo "\n\033[1;32m------------------------------------------------\033[0m"
-	@.\/bin/Client $(ip) 9009
-	@echo "\n\033[1;32m------------------------------------------------\033[0m"
-	@.\/bin/Client $(ip) 9010
-	@echo "\n\033[1;32m------------------------------------------------\033[0m"
-	@.\/bin/Client $(ip) 9011
-	@echo "\n\033[1;32m------------------------------------------------\033[0m"
-	@.\/bin/Client $(ip) 9012
-	@echo "\n\033[1;32m------------------------------------------------\033[0m"
-	@.\/bin/Client $(ip) 9013
-	@echo "\n\033[1;32m------------------------------------------------\033[0m"
-	@.\/bin/Client $(ip) 9014
-	@echo "\n\033[1;32m------------------------------------------------\033[0m"
-	@.\/bin/Client $(ip) 9015
+	@.\/bin/Client $(ip) 9000 5 output
 	@make finished --no-print-directory
 
 run_client_once:compile_client runClientMessage 
@@ -94,38 +64,7 @@ run_client_once:compile_client runClientMessage
 #-------------------------------------------------------------------------------
 
 run_server:compile_server runServerMessage 
-	@.\/bin/Server 9000 $(repetitions) 65334KB.txt
-	@rm output/output.csv
-	@echo "\n\033[1;32m------------------------------------------------\033[0m"
-	@.\/bin/Server 9001 $(repetitions) 128KB.txt
-	@echo "\n\033[1;32m------------------------------------------------\033[0m"
-	@.\/bin/Server 9002 $(repetitions) 192KB.txt
-	@echo "\n\033[1;32m------------------------------------------------\033[0m"
-	@.\/bin/Server 9003 $(repetitions) 256KB.txt
-	@echo "\n\033[1;32m------------------------------------------------\033[0m"
-	@.\/bin/Server 9004 $(repetitions) 320KB.txt
-	@echo "\n\033[1;32m------------------------------------------------\033[0m"
-	@.\/bin/Server 9005 $(repetitions) 384KB.txt
-	@echo "\n\033[1;32m------------------------------------------------\033[0m"
-	@.\/bin/Server 9006 $(repetitions) 448KB.txt
-	@echo "\n\033[1;32m------------------------------------------------\033[0m"
-	@.\/bin/Server 9007 $(repetitions) 512KB.txt
-	@echo "\n\033[1;32m------------------------------------------------\033[0m"
-	@.\/bin/Server 9008 $(repetitions) 576KB.txt
-	@echo "\n\033[1;32m------------------------------------------------\033[0m"
-	@.\/bin/Server 9009 $(repetitions) 640KB.txt
-	@echo "\n\033[1;32m------------------------------------------------\033[0m"
-	@.\/bin/Server 9010 $(repetitions) 704KB.txt
-	@echo "\n\033[1;32m------------------------------------------------\033[0m"
-	@.\/bin/Server 9011 $(repetitions) 768KB.txt
-	@echo "\n\033[1;32m------------------------------------------------\033[0m"
-	@.\/bin/Server 9012 $(repetitions) 832KB.txt
-	@echo "\n\033[1;32m------------------------------------------------\033[0m"
-	@.\/bin/Server 9013 $(repetitions) 896KB.txt
-	@echo "\n\033[1;32m------------------------------------------------\033[0m"
-	@.\/bin/Server 9014 $(repetitions) 960KB.txt
-	@echo "\n\033[1;32m------------------------------------------------\033[0m"
-	@.\/bin/Server 9015 $(repetitions) 1MB.txt
+	@.\/bin/Server 9000 data/64KB.txt
 	@make finished --no-print-directory
 
 run_server_png:compile_server runServerMessage 
@@ -197,6 +136,8 @@ help:
 	@echo "\033[1m To run the client give as parameters:\033[0m"
 	@echo "\033[1;32m 	1- \033[0mServer Ip\033[0m"
 	@echo "\033[1;32m 	2- \033[0mPort number\033[0m"
+	@echo "\033[1;32m 	3- \033[0mNumber of repetitions\033[0m"
+	@echo "\033[1;32m 	3- \033[0mCsv file name.\033[0m\n"
 	@echo "\033[1m To run the server give as parameters:\033[0m"
 	@echo "\033[1;32m 	1- \033[0mPort number\033[0m"
 	@echo "\033[1;32m 	2- \033[0mNumber of repetitions\033[0m"
