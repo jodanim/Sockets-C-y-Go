@@ -63,43 +63,8 @@ run_client_once:compile_client runClientMessage
 
 #-------------------------------------------------------------------------------
 
-run_server:compile_server runServerMessage 
+run_server:compile_server runServerMessage
 	@.\/bin/Server 9000 data/64KB.txt
-	@make finished --no-print-directory
-
-run_server_png:compile_server runServerMessage 
-	@.\/bin/Server 9000 $(repetitions) 1.png
-	@rm output/output.csv
-	@echo "\n\033[1;32m------------------------------------------------\033[0m"
-	@.\/bin/Server 9001 $(repetitions) 2.png
-	@echo "\n\033[1;32m------------------------------------------------\033[0m"
-	@.\/bin/Server 9002 $(repetitions) 3.png
-	@echo "\n\033[1;32m------------------------------------------------\033[0m"
-	@.\/bin/Server 9003 $(repetitions) 4.png
-	@echo "\n\033[1;32m------------------------------------------------\033[0m"
-	@.\/bin/Server 9004 $(repetitions) 5.png
-	@echo "\n\033[1;32m------------------------------------------------\033[0m"
-	@.\/bin/Server 9005 $(repetitions) 6.png
-	@echo "\n\033[1;32m------------------------------------------------\033[0m"
-	@.\/bin/Server 9006 $(repetitions) 7.png
-	@echo "\n\033[1;32m------------------------------------------------\033[0m"
-	@.\/bin/Server 9007 $(repetitions) 8.png
-	@echo "\n\033[1;32m------------------------------------------------\033[0m"
-	@.\/bin/Server 9008 $(repetitions) 9.png
-	@echo "\n\033[1;32m------------------------------------------------\033[0m"
-	@.\/bin/Server 9009 $(repetitions) 10.png
-	@echo "\n\033[1;32m------------------------------------------------\033[0m"
-	@.\/bin/Server 9010 $(repetitions) 11.png
-	@echo "\n\033[1;32m------------------------------------------------\033[0m"
-	@.\/bin/Server 9011 $(repetitions) 12.png
-	@echo "\n\033[1;32m------------------------------------------------\033[0m"
-	@.\/bin/Server 9012 $(repetitions) 13.png
-	@echo "\n\033[1;32m------------------------------------------------\033[0m"
-	@.\/bin/Server 9013 $(repetitions) 14.png
-	@echo "\n\033[1;32m------------------------------------------------\033[0m"
-	@.\/bin/Server 9014 $(repetitions) 15.png
-	@echo "\n\033[1;32m------------------------------------------------\033[0m"
-	@.\/bin/Server 9015 $(repetitions) 16.png
 	@make finished --no-print-directory
 
 run_server_arg:
