@@ -13,8 +13,14 @@ df_img_go_1M = read.csv('../results/go/img_go_1M.csv', header=T)
 colnames(df_img_go_1M) <- c("size.B","iter", "time.ns")
 
 
-df = read.csv('../results/go_32M_txt.csv', header=T)
+df = read.csv('../results/32M_webm_5.csv', header=T)
 colnames(df) <- c("size.B","iter", "time.ns")
+df <- df[-c(1, 42),]
+qqnorm(df$time.ns);qqline(df$time.ns);
+View(df)
+shapiro.test(df$time.ns)
+mean(df$size.B/(df$time.ns / 10^9)) / 1024
+sd(df$size.B/(df$time.ns / 10^9)) / 1024
 
 #---------------------- Cargar datos ----------------------#
 
@@ -38,10 +44,12 @@ df_img_go.speed <- df_img_go.mean$size.B/ df_img_go.mean$avg.time.ns
 
 
 #---------------------- Normalidad ----------------------#
+# q-q plots
 qqnorm(df_txt_go_32M$vel);qqline(df_txt_go_32M$vel);
 qqnorm(df_img_go_32M$vel);qqline(df_img_go_32M$vel);
 qqnorm(df_webm_go_32M$vel);qqline(df_webm_go_32M$vel);
 
+# Pruebas de normalidad
 shapiro.test(df_txt_go_32M$vel)$p.value
 ad.test(df_txt_go_32M$vel)$p.value
 
@@ -51,7 +59,7 @@ ad.test(df_img_go_32M$vel)$p.value
 shapiro.test(df_webm_go_32M$vel)$p.value
 ad.test(df_webm_go_32M$vel)$p.value
 
-
+# Media y desviación estándar de cada muestra
 mean(df_txt_go_32M$vel)
 mean(df_img_go_32M$vel)
 mean(df_webm_go_32M$vel)
@@ -89,7 +97,8 @@ ggplot(data=vels, aes(x = Vel.KB.s, color = File.type, fill = File.type)) +
   geom_histogram(aes(y = ..density..), bins=15, alpha = 0.10, position = "identity") +
   geom_density(alpha = 0.25) +
   scale_color_viridis(discrete = TRUE, option = "A") +
-  scale_fill_viridis(discrete = TRUE, option = "A") 
+  scale_fill_viridis(discrete = TRUE, option = "A") +
+  scale_x_continuous(name = "Velocidad de descarga (KB/s)")
 
 
 #---------------------- Ignorar ----------------------#
