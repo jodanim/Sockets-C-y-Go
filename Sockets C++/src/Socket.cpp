@@ -3,7 +3,7 @@ Socket::Socket(char t, bool ipv6){
 	int type = t=='s'?SOCK_STREAM:SOCK_DGRAM;
 	int domain = ipv6? AF_INET6:AF_INET;
 	sockfd = socket(domain,type,0);
-	if(sockfd==-1)perror("Socket:Constructor"); 
+	if(sockfd==-1)perror("Socket:Constructor");
 }
 
 Socket::Socket(int new_sockfd){
@@ -17,7 +17,7 @@ Socket::~Socket(){
 int Socket::Connect(char * Host, int Port){
 	char ip[100];
 	if(Host[0]<'0'||Host[0]>'9'){
-		HostnameToIp(Host,ip);	
+		HostnameToIp(Host,ip);
 	}else{
 		strcpy(ip,Host);
 	}
@@ -40,7 +40,7 @@ int Socket::Connect( char *host, char *service ) {
 	hints.ai_family = AF_UNSPEC;
 	hints.ai_socktype = SOCK_STREAM;
 	hints.ai_flags = 0;
-	hints.ai_protocol = 0;          
+	hints.ai_protocol = 0;
 
 	st = getaddrinfo( host, service, &hints, &result);
 	if(st != 0){
@@ -62,9 +62,8 @@ int Socket::Read(char * text, int len){
 	return recv(sockfd,text,len,0);
 }
 
-int Socket::Write(const char * text){
-	int len = strlen(text);
-	int result = send(sockfd, text, len, 0);
+int Socket::Write(const char * buffer, int len){
+	int result = send(sockfd, buffer, len, 0);
 	if(result == -1)perror("Socket:Write");
 	return result;
 }
@@ -111,8 +110,8 @@ int Socket::HostnameToIp(char *hostname , char *ip)
 	struct hostent *he;
 	struct in_addr **addr_list;
 	int i;
-		
-	if ( (he = gethostbyname( hostname ) ) == NULL) 
+
+	if ( (he = gethostbyname( hostname ) ) == NULL)
 	{
 		// get the host info
 		herror("gethostbyname");
@@ -120,8 +119,8 @@ int Socket::HostnameToIp(char *hostname , char *ip)
 	}
 
 	addr_list = (struct in_addr **) he->h_addr_list;
-	
-	for(i = 0; addr_list[i] != NULL; i++) 
+
+	for(i = 0; addr_list[i] != NULL; i++)
 	{
 		//Return the first one;
 		strcpy(ip , inet_ntoa(*addr_list[i]) );

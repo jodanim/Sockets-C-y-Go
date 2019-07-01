@@ -20,7 +20,7 @@ class Socket{
 		int Connect(char * Host, int Port);
 		int Connect(char * Host, char * Service);
 		int Read(char * text, int len);
-		int Write(const char * text);
+		int Write(const char * buffer, int len);
 		int Shutdown(int);
 		int Close();
 		int Listen(int Queue);
