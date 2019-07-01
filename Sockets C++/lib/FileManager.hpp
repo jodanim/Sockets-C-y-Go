@@ -14,7 +14,7 @@ class FileManager{
 		void close();
 		void writeln(std::string data);
 		void write(std::string data);
-		std::string readFile();
+		char* readFile(int *file_size);
 		std::string readSome(int bytes);
 		int getBytes();
 	private:

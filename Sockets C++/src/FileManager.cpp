@@ -8,9 +8,9 @@ FileManager::~FileManager(){
 
 void FileManager::open(std::string path, bool write){
     if(write)
-        file.open(path,std::fstream::out | std::fstream::app);
+        file.open(path,std::fstream::out | std::fstream::app | std::fstream::binary);
     else
-        file.open(path);
+        file.open(path, std::fstream::in | std::fstream::binary);
         if(file.fail()){
             std::cout<<"\033[1;31mERROR: the file \033[0;33m\""<<path<<"\"\033[1;31m doesn't exists\n\033[0m";
             exit(EXIT_FAILURE);
@@ -29,16 +29,24 @@ void FileManager::write(std::string data){
 	file << data;
 }
 
-std::string FileManager::readFile(){
-    std::string buffer = "";
-    std::string line;
-    while(getline(file,line)){
-        buffer += line;
-        buffer += "\n";
+char* FileManager::readFile(int *file_size){
+    file.seekg(0, std::ios::end);
+    *file_size = file.tellg();
+    file.seekg(0, std::ios::beg);
+
+    char * buffer = new char[*file_size];
+    file.read(buffer, *file_size);
+
+    if(file.fail()) {
+        std::cout << "Some error happened while reading" << std::endl;
+        exit(EXIT_FAILURE);
     }
+
+    std::cout << "Read " << *file_size << " bytes from file" << std::endl;
+
     return buffer;
 }
-std::string FileManager::readSome(int bytes){ 
+std::string FileManager::readSome(int bytes){
     if(!file.eof()){
         std::string buffer = unbuffered;
         unbuffered = "";
