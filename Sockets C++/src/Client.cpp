@@ -5,16 +5,6 @@
 
 #define BUF_SIZE 4096
 
-void debug(std::string data, int t = 0){
-	sleep(t);
-	std::cout<<"\033[47;30m"<<data<<"\033[0m"<<std::endl;
-}
-
-void debug(int data, int t = 0){
-	sleep(t);
-	std::cout<<"\033[47;30m"<<data<<"\033[0m"<<std::endl;
-}
-
 /*
  * arg1: ip
  * arg2: puerto
@@ -42,7 +32,7 @@ int main(int argc, char**argv){
 	
 	Socket *s1;
 
-	std::cout<<"\nReceiving file \033[33m"<< repetitions << "\033[0m time"<<(repetitions==1?"":"s")<<".\n";
+	std::cout<<"\nReceiving file \033[33m"<< repetitions << "\033[0m time"<<(repetitions==1?"":"s")<<" on port \033[33m"<< port <<"\033[0m.\n\n";
 
 	for(int j = 0; j < repetitions; j++){// Itera sobre las n repeticiones
 
@@ -53,11 +43,13 @@ int main(int argc, char**argv){
 		do{
 			size +=	bytes = s1->Read(buffer, BUF_SIZE);
 		}while(bytes != 0);
-		int endTime = time.end();
+		double endTime = time.end();
 		s1->Close();
 		fileManager.writeln(std::to_string(size)+","+std::to_string(j+1)+","+std::to_string(endTime));
+		std::cout<<"\033[sConection \033[33m#"<< j+1 <<"\033[0m\033[u";
 	}
 	fileManager.close();
+	std::cout<<std::endl;
 	time.programEnd();
 	return EXIT_SUCCESS;
 }

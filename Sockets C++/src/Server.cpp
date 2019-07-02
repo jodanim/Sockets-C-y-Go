@@ -4,36 +4,15 @@
 #include <sys/wait.h>
 #include <pthread.h>
 
+#define BUF_SIZE 4096
+#define forever for(;;)
+
 class pargs {
 public:
     char *buffer;
     int length;
     Socket *s;
 };
-
-void debug(std::string data, int t = 0){
-	sleep(t);
-	std::cout<<"\033[47;30m"<<data<<"\033[0m"<<std::endl;
-}
-
-void debug(int data, int t = 0){
-	sleep(t);
-	std::cout<<"\033[47;30m"<<data<<"\033[0m"<<std::endl;
-}
-
-#define BUF_SIZE 4096
-#define forever for(;;)
-
-std::string getDataMeasurement(int &size,std::string dm = "B"){
-	std::string dataMeasuremet[] = {"B","KB","MB","GB","TB"};
-	int measure = 0;
-	while(dataMeasuremet[measure] != dm)measure++;
-	while(size/1024>=1){
-		size/=1024;
-		measure++;
-	}
-	return dataMeasuremet[measure];
-}
 
 void* ProcessConnection(void* args) {
     pargs* cast = (pargs*) args;
@@ -62,7 +41,7 @@ int main(int argc, char **argv){
 	std::string filename = argv[2];
 	int connection = 0;
 
-	std::cout<<"\nServing the file \033[33m\""<< filename << "\"\033[0m.\n";
+	std::cout<<"\nServing the file \033[33m\""<< filename << "\"\033[0m on the port \033[33m"<<argv[1]<<"\033[0m." << std::endl;
 
     char *buffer;
     int buffer_len;
@@ -70,9 +49,8 @@ int main(int argc, char **argv){
     buffer = fileManager.readFile(&buffer_len);
     fileManager.close();
 
-    std::cout<<"\033[sWaiting for client to connect on the port \033[33m"<<argv[1]<<"\033[0m." << std::endl;
     int tid = 0;
-
+    std::cout<<std::endl;
 	forever {
         pargs *args;
         args = new pargs;
@@ -94,6 +72,6 @@ int main(int argc, char **argv){
             exit(-1);
         }
 
-        std::cout << "Spawned thread " << ++tid << std::endl;
+        std::cout << "\033[sRequested \033[33m" << ++tid <<"\033[0m times \n\033[u";
 	}
 }

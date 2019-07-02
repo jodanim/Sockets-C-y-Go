@@ -42,7 +42,7 @@ char* FileManager::readFile(int *file_size){
         exit(EXIT_FAILURE);
     }
 
-    std::cout << "Read " << *file_size << " bytes from file" << std::endl;
+    std::cout << std::endl << "Read \033[33m" << *file_size << "\033[0m bytes from file" << std::endl;
 
     return buffer;
 }
