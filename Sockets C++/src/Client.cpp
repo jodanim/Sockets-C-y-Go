@@ -46,7 +46,7 @@ int main(int argc, char**argv){
 		double endTime = time.end();
 		s1->Close();
 		fileManager.writeln(std::to_string(size)+","+std::to_string(j+1)+","+std::to_string(endTime));
-		std::cout<<"\033[sConection \033[33m#"<< j+1 <<"\033[0m\033[u";
+		std::cout<<"\033[sConnection \033[33m#"<< j+1 <<"\033[0m\n\033[u";
 	}
 	fileManager.close();
 	std::cout<<std::endl;
